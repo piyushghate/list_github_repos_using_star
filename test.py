@@ -13,7 +13,8 @@
 #     json.dumps(r)
 
 
-import urllib.request, json 
+import urllib.request 
+import json 
 with urllib.request.urlopen("https://api.github.com/users/piyushghate/repos") as url:
     data = json.loads(url.read().decode())
     # print(data)
@@ -30,7 +31,7 @@ for each in data:
         print(each['stargazers_count'])
         stareddata = {
             'name' : each['name'],
-            'star' : each['stargazers_count'],
+            'stars' : each['stargazers_count'],
         }
         list1.append(stareddata)
 
