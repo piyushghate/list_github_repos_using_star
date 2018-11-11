@@ -38,8 +38,6 @@ for each in data:
         }
         list1.append(stareddata)
 
-# print(list1)
-
 newlist = sorted(list1, key=lambda k: k['stars'], reverse=True)
 
 dict1 = { "results" : []}
