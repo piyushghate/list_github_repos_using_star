@@ -2,11 +2,30 @@ import urllib.request
 import json 
 
 
+
+
+inputfromuser = input("Please mention the org name: ")
+
+inputobj = {
+    'org' : inputfromuser, 
+}
+
+inputjson = json.dumps(inputobj)
+print("Input given as: ",inputjson)
+
+inputlist1 = []
+
+inputlist1.append(inputobj)
+
+orgname = inputlist1[0]["org"]
+
 # /orgs/:org/repos
 
 # /users/:username/repos
 
-with urllib.request.urlopen("https://api.github.com/orgs/mozilla/repos") as url:
+url1 = "https://api.github.com/orgs/" +orgname+"/repos"
+
+with urllib.request.urlopen(url1) as url:
     data = json.loads(url.read().decode())
 
 list1 = []
