@@ -1,9 +1,9 @@
 import requests
 import json
 
-url = 'http://127.0.0.1:5000/'
+url = 'http://127.0.0.1:5000/repo'
 headers = {'Content-Type': 'application/json'}
-data = {'email' : 'piyushghate17@gmail.com', 'name' : 'Piyush', 'angel_list' : 'https://angel.co/piyush-ghate', 'github' : 'https://github.com/piyushghate'}
+data = {'org': 'mozilla'}
 
 r = requests.post(url,data=json.dumps(data), headers=headers)
 
