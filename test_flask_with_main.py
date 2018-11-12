@@ -5,55 +5,55 @@ import json
 
 
 # inputfromuser = input("Please mention the org name: ")
-def run_api(input_json):
+def run_api(jsonformat):
     
-    json_string = json.dumps(input_json)
+    json_string = json.dumps(jsonformat)
 
-    return json_string
+        # return json_string
 
-    # inputobj = {
-    #     'org' : inputfromuser, 
-    # }
+        
 
-    # inputjson = json.dumps(inputobj)
-    # print("Input given as: ",inputjson)
+    inputobj = json.loads(json_string)
 
-    # inputlist1 = []
+        # inputjson = json.dumps(inputobj)
+    print("Input given as: ",json_string)
 
-    # inputlist1.append(inputobj)
+    inputlist1 = []
 
-    # orgname = inputlist1[0]["org"]
+    inputlist1.append(inputobj)
 
-    # # /orgs/:org/repos
+    orgname = inputlist1[0]["org"]
 
-    # # /users/:username/repos
+        # /orgs/:org/repos
 
-    # url1 = "https://api.github.com/orgs/" +orgname+"/repos"
+        # /users/:username/repos
 
-    # with urllib.request.urlopen(url1) as url:
-    #     data = json.loads(url.read().decode())
+    url1 = "https://api.github.com/orgs/" +orgname+"/repos"
 
-    # list1 = []
+    with urllib.request.urlopen(url1) as url:
+            data = json.loads(url.read().decode())
 
-    # for each in data:
-    #     if (each['stargazers_count'] != 0):
-    #         stareddata = {
-    #             'name' : each['name'],
-    #             'stars' : each['stargazers_count'],
-    #         }
-    #         list1.append(stareddata)
+    list1 = []
 
-    # newlist = sorted(list1, key=lambda k: k['stars'], reverse=True)
+    for each in data:
+        if (each['stargazers_count'] != 0):
+            stareddata = {
+                'name' : each['name'],
+                'stars' : each['stargazers_count'],
+            }
+            list1.append(stareddata)
+
+    newlist = sorted(list1, key=lambda k: k['stars'], reverse=True)
 
     # dict1 = { "results" : []}
+    list2 = []
+    lengthdict = 0
 
-    # lengthdict = 0
+    for each in newlist:
+        list2.append(each)
+        lengthdict += 1
+        if(lengthdict == 3):
+            break
 
-    # for each in newlist:
-    #     dict1["results"].append(each)
-    #     lengthdict += 1
-    #     if(lengthdict == 3):
-    #         break
-
+    return json.dumps(list2)
     # print(json.dumps(dict1))
-
