@@ -2,53 +2,49 @@ import urllib.request
 import json 
 
 
+def run_api(jsonformat):
+    
+    json_string = json.dumps(jsonformat)
 
+    inputobj = json.loads(json_string)
 
-inputfromuser = input("Please mention the org name: ")
+    print("Input given as: ",json_string)
 
-inputobj = {
-    'org' : inputfromuser, 
-}
+    inputlist1 = []
 
-inputjson = json.dumps(inputobj)
-print("Input given as: ",inputjson)
+    inputlist1.append(inputobj)
 
-inputlist1 = []
+    orgname = inputlist1[0]["org"]
 
-inputlist1.append(inputobj)
+        # /orgs/:org/repos
 
-orgname = inputlist1[0]["org"]
+        # /users/:username/repos
 
-# /orgs/:org/repos
+    url1 = "https://api.github.com/orgs/" +orgname+"/repos"
 
-# /users/:username/repos
+    with urllib.request.urlopen(url1) as url:
+            data = json.loads(url.read().decode())
 
-url1 = "https://api.github.com/orgs/" +orgname+"/repos"
+    list1 = []
 
-with urllib.request.urlopen(url1) as url:
-    data = json.loads(url.read().decode())
+    for each in data:
+        if (each['stargazers_count'] != 0):
+            stareddata = {
+                'name' : each['name'],
+                'stars' : each['stargazers_count'],
+            }
+            list1.append(stareddata)
 
-list1 = []
+    newlist = sorted(list1, key=lambda k: k['stars'], reverse=True)
 
-for each in data:
-    if (each['stargazers_count'] != 0):
-        stareddata = {
-            'name' : each['name'],
-            'stars' : each['stargazers_count'],
-        }
-        list1.append(stareddata)
+    finallist = []
+    lengthdict = 0
 
-newlist = sorted(list1, key=lambda k: k['stars'], reverse=True)
+    for each in newlist:
+        finallist.append(each)
+        lengthdict += 1
+        if(lengthdict == 3):
+            break
 
-dict1 = { "results" : []}
-
-lengthdict = 0
-
-for each in newlist:
-    dict1["results"].append(each)
-    lengthdict += 1
-    if(lengthdict == 3):
-        break
-
-print(json.dumps(dict1))
+    return json.dumps(finallist)
 
