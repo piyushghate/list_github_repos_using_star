@@ -10,19 +10,20 @@ def run_api(jsonformat):
 
     print("Input given as: ",json_string)
 
-    inputlist1 = []
+    # inputlist1 = []
 
-    inputlist1.append(inputobj)
+    # inputlist1.append(jsonformat)
 
-    orgname = inputlist1[0]["org"]
+    # orgname = inputlist1[0]["org"]
+    orgname = inputobj["org"]
 
         # /orgs/:org/repos
 
         # /users/:username/repos
 
-    url1 = "https://api.github.com/orgs/" +orgname+"/repos"
+    # url1 = "https://api.github.com/orgs/" +orgname+"/repos"
 
-    with urllib.request.urlopen(url1) as url:
+    with urllib.request.urlopen("https://api.github.com/orgs/" +orgname+"/repos") as url:
             data = json.loads(url.read().decode())
 
     list1 = []
