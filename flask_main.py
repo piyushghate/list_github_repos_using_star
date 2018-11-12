@@ -5,7 +5,7 @@ from main_api import run_api
 app = Flask(__name__)
 
 
-@app.route('/repo', methods = ['POST'])
+@app.route('/repos', methods = ['POST'])
 def index():
     if(request.method == 'POST'):
         input_json = request.get_json()
