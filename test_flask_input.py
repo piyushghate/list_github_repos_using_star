@@ -1,11 +1,8 @@
 import requests
 import json
 
-url = 'http://127.0.0.1:5000/repos'
-headers = {'Content-Type': 'application/json'}
-data = {'org': 'mozilla'}
-
-r = requests.post(url,data=json.dumps(data), headers=headers)
+# making a post request @http://127.0.0.1:5000/repos with header as ({'Content-Type': 'application/json'}) and data as ({'org': 'google'})
+r = requests.post('http://127.0.0.1:5000/repos', data=json.dumps({'org': 'google'}), headers={'Content-Type': 'application/json'})
 
 print(r)
 print(r.headers)
