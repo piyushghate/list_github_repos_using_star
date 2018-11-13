@@ -1,15 +1,13 @@
 from flask import Flask, jsonify, request
-# from test_flask_with_main import *
-from main_api import run_api
+from main_api import run_api        # importing the api fucntion
 
 app = Flask(__name__)
 
 
-@app.route('/repos', methods = ['POST'])
+@app.route('/repos', methods = ['POST'])    # defines the method and path to the api
 def index():
     if(request.method == 'POST'):
-        input_json = request.get_json()
-        return_from_mainapp = run_api(input_json)
+        return_from_mainapp = run_api(request.get_json())
         return jsonify({'results': return_from_mainapp}), 201
 
 if __name__ == '__main__':
