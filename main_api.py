@@ -10,22 +10,13 @@ def run_api(jsonformat):
 
     print("Input given as: ",json_string)
 
-    # inputlist1 = []
-
-    # inputlist1.append(jsonformat)
-
-    # orgname = inputlist1[0]["org"]
     orgname = inputobj["org"]
 
-        # /orgs/:org/repos
-
-        # /users/:username/repos
-
-    # url1 = "https://api.github.com/orgs/" +orgname+"/repos"
-
+    #To open and read the url:
     with urllib.request.urlopen("https://api.github.com/orgs/" +orgname+"/repos") as url:
-            data = json.loads(url.read().decode())
+            data = json.loads(url.read())
 
+    #empty list to hold the repo data with stargazers_count
     list1 = []
 
     for each in data:
