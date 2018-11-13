@@ -2,41 +2,37 @@ import urllib.request
 import json 
 
 
-def run_api(jsonformat):
+def run_api(jsonformat):    # function which is called in flask_main file
     
-    json_string = json.dumps(jsonformat)
-
-    inputobj = json.loads(json_string)
-
-    print("Input given as: ",json_string)
-
-    orgname = inputobj["org"]
+    # fetching org name from data passed to run_api function
+    print("org ID: ", jsonformat['org'])
 
     #To open and read the url:
-    with urllib.request.urlopen("https://api.github.com/orgs/" +orgname+"/repos") as url:
+    with urllib.request.urlopen("https://api.github.com/orgs/" +jsonformat['org']+"/repos") as url:
             data = json.loads(url.read())
 
     #empty list to hold the repo data with stargazers_count
     list1 = []
 
     for each in data:
-        if (each['stargazers_count'] != 0):
-            stareddata = {
+        if (each['stargazers_count'] != 0):         # get all the repos with non zero stars
+            stareddata = {                          # obj which will hold name and stars of the repo
                 'name' : each['name'],
                 'stars' : each['stargazers_count'],
             }
             list1.append(stareddata)
 
-    newlist = sorted(list1, key=lambda k: k['stars'], reverse=True)
+    newlist = sorted(list1, key=lambda k: k['stars'], reverse=True)     # this will sort the list for repos in decending order for stars
 
-    finallist = []
-    lengthdict = 0
+    finallist = []      #final list to hold the first three repos
+
+    lengthdict = 0      
 
     for each in newlist:
         finallist.append(each)
-        lengthdict += 1
-        if(lengthdict == 3):
+        if(lengthdict == 2):    # allows only 0, 1 and 2nd position elements from newlist into finallist
             break
+        lengthdict += 1
 
-    return json.dumps(finallist)
+    return finallist    # finally passing the list holding 3 repos with maximum stars
 
