@@ -1,34 +1,15 @@
-# import requests
-# import json
-
-# link = "https://api.github.com/users/piyushghate/repos"
-# f = requests.get(link)
-# data = json.loads(f.read())
-# print(data)
-
-# r = requests.get(link)
-# # print(r.json())
-
-# with open('data.json', 'w') as testfile:
-#     json.dumps(r)
-
-
 import urllib.request 
 import json 
-with urllib.request.urlopen("https://api.github.com/users/piyushghate/repos") as url:
-    data = json.loads(url.read().decode())
-    # print(data)
 
-    # with open('data.json', 'w') as testfile:
-    #     json.dump(data, testfile)
+#To open and read the url:
+with urllib.request.urlopen("https://api.github.com/users/piyushghate/repos") as url:   
+    data = json.loads(url.read())
 
+#empty list to hold the repo data with stargazers_count
 list1 = []
 
 for each in data:
-    if (each['stargazers_count'] != 0):
-        # print(each['id'])
-        print(each['name'])
-        print(each['stargazers_count'])
+    if (each['stargazers_count'] != 0):         # any repo with stargazers_count greater than 0 appended in list1
         stareddata = {
             'name' : each['name'],
             'stars' : each['stargazers_count'],
